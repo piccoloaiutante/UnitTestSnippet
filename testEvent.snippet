@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippet Format="1.0.0" 
+             xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <Header>
+    <Title>Test Event Aggregator</Title>
+    <Author>Michele Capra</Author>
+    <Shortcut>testevent</Shortcut>
+    <Description>Basic structure for testing a PRISM Event</Description>
+    <SnippetTypes>
+      <SnippetType>Expansion</SnippetType>
+    </SnippetTypes>
+  </Header>
+  <Snippet>
+    <Declarations>
+      <Literal>
+        <ID>TestName</ID>
+        <Default>TestName</Default>
+      </Literal>
+	  <Literal>
+        <ID>ViewModel</ID>
+        <Default>ViewModel</Default>
+      </Literal>
+	  <Literal>
+        <ID>Event</ID>
+        <Default>Event</Default>
+      </Literal>
+	  <Literal>
+        <ID>EventArgs</ID>
+        <Default>EventArgs</Default>
+      </Literal>
+    </Declarations>
+    <Code Language="CSharp">
+      <![CDATA[
+		[Fact]
+		public void $TestName$()
+        {
+			//Arrange
+			Mock<IEventAggregator> eventAggregator = new Mock<IEventAggregator>();
+
+			Mock<$Event$> mockedEvent = new Mock<$Event$>();
+
+			Action<$EventArgs$> action = null;
+
+			eventAggregator.Setup(p => p.GetEvent<$Event$>()).Returns(mockedEvent.Object);
+
+			mockedEvent.Setup(evnt => evnt.Subscribe(It.IsAny<Action<$EventArgs$>>(), ThreadOption.PublisherThread, true, null)).Callback<Action<$EventArgs$>, ThreadOption, bool, Predicate<$EventArgs$>>((cb, a, b, c) => action = cb);
+
+			viewModel = new $ViewModel$(eventAggregator.Object);
+
+			//Act
+			action(new $EventArgs$());
+
+			//Assert
+		}
+      ]]>
+    </Code>
+  </Snippet>
+</CodeSnippet>
+
+
