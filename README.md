@@ -53,4 +53,4 @@ public void IsEnabled_ShouldBe_True_When_EnableFlagEvent_IsPublished ()
    Assert.True(viewModel.IsEnabled);
 }
 </pre>
-The snippet propose an abstraction of this case.
+The [https://github.com/piccoloaiutante/UnitTestSnippet/blob/master/testEvent.snippet snippet] propose an abstraction of this case.
